@@ -36,5 +36,27 @@ namespace MVCWithLinq3.Models
             EmpDepts Emp = new EmpDepts { Eid=Record.Eid,Ename=Record.Ename, Job = Record.Job, Salary = Record.Salary, Did = Record.Did, Dname = Record.Dname, Location = Record.Location };
             return Emp;
         }
+        public void Employee_Insert(EmpDepts obj)
+        {
+            Employee Emp = new Employee { Ename=obj.Ename, Job=obj.Job, Salary=obj.Salary,Did=obj.Did,Status=true };
+
+            dc.Employees.InsertOnSubmit(Emp);
+            dc.SubmitChanges();
+        }
+        public void Employee_Update(EmpDepts NewValues)
+        {
+            Employee OldValues = dc.Employees.Single(E=>E.Eid==NewValues.Eid);
+            OldValues.Ename = NewValues.Ename; 
+            OldValues.Salary = NewValues.Salary;
+            OldValues.Job = NewValues.Job;
+            OldValues.Did = NewValues.Did;
+            dc.SubmitChanges();
+        }
+        public void Employee_Delete(int Eid)
+        {
+            Employee OldValues = dc.Employees.Single(E => E.Eid == Eid);
+            OldValues.Status = false;
+            dc.SubmitChanges();
+        }
     }
 }
