@@ -25,6 +25,27 @@ namespace MVCWithLinq3.Controllers
             Emp.Departments = obj.GetDepartment();
             return View(Emp);   
         }
-        
+        [HttpPost]
+        public RedirectToRouteResult AddEmployee(EmpDepts Emp)
+        {
+            obj.Employee_Insert(Emp);
+            return RedirectToAction("DisplayEmployees");
+        }
+        public ViewResult EditEmployee(int Eid)
+        {
+            EmpDepts Emp = obj.GetEmployee(Eid);
+            Emp.Departments = obj.GetDepartment();
+            return View(Emp);
+        }
+        public RedirectToRouteResult UpdateEmployee(EmpDepts Emp)
+        {
+            obj.Employee_Update(Emp);
+            return RedirectToAction("DisplayEmployees");
+        }
+        public RedirectToRouteResult DeleteEmployees(int Eid)
+        {
+            obj.Employee_Delete(Eid);
+            return RedirectToAction("DisplayEmployees");
+        }
     }
 }
